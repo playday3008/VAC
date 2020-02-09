@@ -11,17 +11,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
-    - name: MSBuild x86
+    - name: MSBuild
       working-directory: VAC
-      run: msbuild VAC.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:VisualStudioVersion=16.0 /v:m /p:OutDir="D:\a\VAC\VAC\VAC\Release\x86\"
-    - name: MSBuild x64
-      working-directory: VAC
-      run: msbuild VAC.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m /p:OutDir="D:\a\VAC\VAC\VAC\Release\x64\"
+      run: msbuild VAC.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:VisualStudioVersion=16.0
     - uses: actions/upload-artifact@v1
       with:
-        name: Release x86
-        path: VAC/Release/x86/VAC.dll
-    - uses: actions/upload-artifact@v1
-      with:
-        name: Release x64
-        path: VAC/Release/x64/VAC.dll
+        name: Release
+        path: VAC/Release/VAC.dll
