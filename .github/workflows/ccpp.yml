@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on: [pull_request, push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: MSBuild x86
+      working-directory: VAC
+      run: msbuild VAC.vcxproj /p:Configuration=Release /p:Platform=Win32 /p:VisualStudioVersion=16.0 /v:m /p:OutDir="D:\a\VAC\VAC\VAC\Release\x86\"
+    - name: MSBuild x64
+      working-directory: VAC
+      run: msbuild VAC.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m /p:OutDir="D:\a\VAC\VAC\VAC\Release\x64\"
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Release x86
+        path: VAC/Release/x86/VAC.dll
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Release x64
+        path: VAC/Release/x64/VAC.dll
